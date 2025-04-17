@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #3494e6, #ec6ead);
+      height: 100vh;
+      overflow-x: hidden;
+      color: white;
+    }
+    
+    .welcome-screen {
+        background: url('/bg7.jpg') no-repeat center center fixed;
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        padding: 1rem;
+        transition: opacity 0.5s;
+        color: lightsalmon;
+      }
+      
+    
+    .main-content {
+      opacity: 0;
+      display: none;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      transition: opacity 0.5s;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    
+    h2 {
+      font-size: 2rem;
+      margin: 2rem 0 1rem;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+    
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    
+    button {
+      background-color: lightcyan;
+      color: black;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 2rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .photo-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .photo-container {
+      position: relative;
+      height: 250px;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .photo-container:hover {
+      transform: scale(1.05);
+    }
+    
+    .photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s;
+    }
+    
+    .quote {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    
+    .wishes-section {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 10px;
+        margin: 2rem 0;
+        font-family: 'Dancing Script', cursive;
+        font-size: 1.3rem;
+        color: #fff;
+        line-height: 1.8;
+      }
+      .highlight-line::first-letter {
+        color: #fff;
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+      
+      
+      
+    
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background-color: #f0f;
+      animation: fall 3s linear infinite;
+      z-index: -1;
+    }
+    
+    @keyframes fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    /* Emoji Bubbles Styles */
+    .emoji-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px 0;
+    }
+    
+    .emoji-bubble {
+      font-size: 22px;
+      padding: 25px;
+      background-color: white;
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+      user-select: none;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Dancing Script', cursive;
+      color: #333;
+    }
+    
+    .emoji-bubble:hover {
+      transform: scale(1.2);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      .photo-gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      }
+      
+      .photo-container {
+        height: 150px;
+      }
+      
+      .emoji-bubble {
+        width: 70px;
+        height: 70px;
+        font-size: 20px;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-screen" id="welcome">
+    <h1>Hello Birthday Boy!</h1><br>
+    <br>
+    <br>
+    <br>
+    <h3>Want to know what's inside👀?</h3>
+    <h3>Don't wait, come and check what's waiting for you!</h3>
+    <button id="enter-btn">Just go ➡️😊</button>
+  </div>
+  
+  <div class="main-content" id="main">
+    <h1>Happy Birthday🥳🎊!</h1>
+    <p>Today is all about you! Here's a special wish through this, just for you, from your friend! 🎉</p>
+    
+    
+    <h2>Unlock a Special Message with Every Image</h2>
+    <div class="photo-gallery">
+      <!-- Photo 1 -->
+      <div class="photo-container" onclick="toggleQuote(this)">
+        <img src="/d6.png" alt="Friend Photo 1" class="photo">
+        <div class="quote">
+          Enjoy the little things and cherish every moment!
+        </div>
+      </div>
+      
+      <!-- Photo 2 -->
+      <div class="photo-container" onclick="toggleQuote(this)">
+        <img src="/d1.png" alt="Friend Photo 2" class="photo">
+        <div class="quote">
+          May your day be as beautiful as you are!
+        </div>
+      </div>
+      
+      <!-- Photo 3 -->
+      <div class="photo-container" onclick="toggleQuote(this)">
+        <img src="/d7.png" alt="Friend Photo 3" class="photo">
+        <div class="quote">
+          Wishing you sunshine and good times ahead!
+        </div>
+      </div>
+      
+      <!-- Photo 4 -->
+      <div class="photo-container" onclick="toggleQuote(this)">
+        <img src="/d5.png" alt="Friend Photo 4" class="photo">
+        <div class="quote">
+          Wishing you success in everything you do!
+        </div>
+      </div>
+    </div>
+
+    <div class="wishes-section">
+        <h3>A special poem for u😄</h3>
+        <h2>Don't Laugh after reading this😄😄</h2>
+        <div class="highlight-line">Debugs the silence when shadows stay🌚🌝,</div>
+        <div class="highlight-line">Echoes with warmth that lights the way🌟.</div>
+        <div class="highlight-line">Every gesture, pure and kind💫💦,</div>
+        <div class="highlight-line">Patterns of peace in heart and mind🕊️🧠</div>
+        <div class="highlight-line">Algorithm of heart, both soft and wise🫀</div>
+        <div class="highlight-line">Kindness compiles where true strength lies🤗.</div>
+      </div>
+      
+    <!-- Added Emoji Reels Section AFTER the photo gallery -->
+    <h2>Special Birthday Reels</h2>
+    <p>Check on the each bubble to know what you got!!</p>
+    <div class="emoji-section">
+      <div class="emoji-bubble" onclick="openReel('https://www.instagram.com/p/DHVQMuUJWpg/')">Happy 21✨🎂</div>
+      <div class="emoji-bubble" onclick="openReel('https://www.instagram.com/p/DAp2hnyt-yS/')">Always🤝🔗</div>
+      <div class="emoji-bubble" onclick="openReel('https://www.instagram.com/p/DFh-fRYSORA/')">True 💯💯</div>
+      <div class="emoji-bubble" onclick="openReel('https://www.instagram.com/p/DGIrrs4ohoo/')">Priceless 😊😇</div>
+      <div class="emoji-bubble" onclick="openReel('https://www.instagram.com/p/DA1y5TKKO2u/')">Timeless talks✨</div>
+      <div class="emoji-bubble" onclick="openReel('https://www.instagram.com/p/DEkR3GYvrBT/')">Can't replace💎💎</div>
+      <div class="emoji-bubble" onclick="openReel('https://www.instagram.com/p/DBEEy1Zq4K2/')">But in snap🔥😂</div>
+      <div class="emoji-bubble" onclick="openReel('https://www.instagram.com/p/DDO1_wbzZgu/')">Lucky 2 have u💫</div>
+    </div>
+    
+    <div class="wishes-section">
+      <h2>A Wish for Your Growth and Success</h2>
+      <p>"I want to see you win, with or without me.</p><br>
+        <p>Get everything that you deserve, become the person you want to be. I want to see you grow, living your best life and being the person you told me you wanted to be. I will always be proud of you. </p>
+      <p>Here's to another year of amazing memories together!</p>
+    </div>
+    
+    <footer>
+      <p>Enjoy Your special day🥳✨🎊</p>
+    </footer>
+  </div>
+  
+  <script>
+    // Show main content when button is clicked
+    document.getElementById('enter-btn').addEventListener('click', function() {
+      const welcome = document.getElementById('welcome');
+      const main = document.getElementById('main');
+      
+      welcome.style.opacity = '0';
+      setTimeout(() => {
+        welcome.style.display = 'none';
+        main.style.display = 'block';
+        setTimeout(() => {
+          main.style.opacity = '1';
+          createConfetti();
+        }, 100);
+      }, 500);
+    });
+    
+    // Toggle between photo and quote
+    function toggleQuote(container) {
+      const photo = container.querySelector('.photo');
+      const quote = container.querySelector('.quote');
+      
+      if (quote.style.opacity === '1') {
+        quote.style.opacity = '0';
+        photo.style.opacity = '1';
+      } else {
+        quote.style.opacity = '1';
+        photo.style.opacity = '0.3';
+      }
+    }
+    
+    // Create confetti effect
+    function createConfetti() {
+      const colors = ['#ff4081', '#3494e6', '#ec6ead', '#ffeb3b', '#2196f3'];
+      
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.animationDelay = Math.random() * 3 + 's';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        document.body.appendChild(confetti);
+        
+        // Remove confetti after animation
+        setTimeout(() => {
+          confetti.remove();
+        }, 3000);
+      }
+    }
+    
+    // Open Instagram reel in new tab
+    function openReel(url) {
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
